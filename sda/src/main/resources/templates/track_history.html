@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Purchase History</title>
+    <link rel="stylesheet" href="/css/track_history.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <a style="color: #ede0d4;" class="navbar-brand" href="#">  
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ede0d4" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg>
+                    Staff Portal
+                </a>
+                <a href="./Home.html">  
+                    <button type="button" class="btn">Home</button>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="purchase-container">
+        <h2>Customer Purchase History</h2>
+        
+        <div id="idInputSection">
+            <label for="userId">Enter Customer ID</label>
+            <input type="text" id="userId" placeholder="Enter ID" required>
+            <button id="findCustomerBtn" class="">Find Customer</button>
+            <p id="message" style="display: none;">Customer not found</p>
+        </div>
+
+        <div id="customerDetailsSection" style="display: none;">
+            <p id="customerName"></p>
+            <table id="purchaseTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Order Price</th>
+                    </tr>
+                </thead>
+                <tbody id="purchaseTableBody">
+                    <!-- Rows will be inserted dynamically using JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+    $('#findCustomerBtn').click(function () {
+        const userId = $('#userId').val().trim();
+
+        if (!userId) {
+            alert('Please enter a Customer ID.');
+            return;
+        }
+
+        // Send AJAX request to backend to fetch purchase history
+        $.ajax({
+            url: '/track_history/find',
+            type: 'POST',
+            data: { userId: userId },
+            success: function (response) {
+                if (response.error) {
+                    $('#message').text(response.error).show();
+                    $('#customerDetailsSection').hide();
+                } else {
+                    $('#message').hide();
+                    $('#customerDetailsSection').show();
+                    $('#customerName').text('Customer Name: ' + response.customerName);
+
+                    const purchases = response.purchases;
+                    const rowSpans = response.rowSpans;
+                    const purchaseTableBody = $('#purchaseTableBody');
+
+                    // Clear any existing rows in the table body
+                    purchaseTableBody.empty();
+
+                    // Generate table rows dynamically
+                    Object.keys(purchases).forEach((orderId) => {
+                        const order = purchases[orderId];
+                        const orderDate = "2024-11-22"; // Replace this with the actual order date from backend if available
+                        const totalOrderPrice = order.reduce((sum, product) => sum + product.total, 0);
+
+                        order.forEach((product, index) => {
+                            const row = $('<tr></tr>');
+
+                            // If it's the first product in the order, set row span and add additional order details
+                            if (index === 0) {
+                                row.append(`<td rowspan="${rowSpans[orderId]}">${orderId}</td>`);
+                                row.append(`<td rowspan="${rowSpans[orderId]}">${orderDate}</td>`);
+                            }
+
+                            row.append(`<td>${product.name}</td>`);
+                            row.append(`<td>${product.quantity}</td>`);
+                            row.append(`<td>${product.price.toFixed(2)}</td>`);
+
+                            if(index === 0) {
+                                row.append(`<td rowspan="${rowSpans[orderId]}">${totalOrderPrice.toFixed(2)}</td>`);
+                            }
+
+                            purchaseTableBody.append(row);
+                        });
+                    });
+                }
+            },
+            error: function () {
+                alert('Error fetching data');
+            }
+        });
+    });
+});
+
+    </script>
+</body>
+</html>

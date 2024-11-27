@@ -1,0 +1,100 @@
+body{
+    height: 100vh; /* Ensure body has a height */
+    font-family: 'Arial', sans-serif;
+    background-color: #ede0d4 !important;
+    color: #333;
+}
+
+.navbar{
+    background-color: #9c6644 !important;
+    border-bottom: 1px solid #e9ecef;
+    color : #ede0d4;
+}
+
+
+.btn{
+    background-color: #ede0d4 !important;
+    color: #9c6644 !important;
+}
+
+
+
+.purchase-container {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #9c6644 !important;
+}
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #9c6644 !important;
+    font-size: 14px;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    color: #9c6644 !important;
+    border-radius: 5px;
+    font-size: 14px;
+}
+button {
+    background: #9c6644;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+button:hover {
+    background: #b08968 !important;
+}
+#message {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    color: red;
+}
+#customerName {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #9c6644 !important;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+table th {
+    color: #9c6644 !important;
+    color: white;
+    font-weight: bold;
+}
+table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+table tr:hover {
+    background: #b08968 !important;
+}

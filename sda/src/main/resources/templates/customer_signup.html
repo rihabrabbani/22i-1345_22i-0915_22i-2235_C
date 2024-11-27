@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/customer_sign.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+          <h2 style="text-align: center; letter-spacing: 1px;">Customer Portal</h2>
+          <form class="register-form" action="/customer_signup" method="post">
+            <input type="text" name="name" placeholder="name"/>
+            <input type="password" name="password" placeholder="password" required/>
+            <input type="text" name="email" placeholder="email address" required/>
+            <input type="text" name="Phone Number" placeholder="Phone Number" required/>
+            <input type="text" name="Address" placeholder="Address" required/>
+            <h4>Preferences</h4>
+            <div style="display: flex; justify-content: center;" class="preferences">
+                <label><input type="checkbox" name="preferences" value="Jeans" checked="true"> Jeans</label>
+                <label><input type="checkbox" name="preferences" value="Tshirts"> Tshirts</label>
+                <label><input type="checkbox" name="preferences" value="Shoes"> Shoes</label>
+            </div>
+            <button type="submit">create</button>
+          </form>
+        </div>
+      </div>
+</body>
+
+</html>
